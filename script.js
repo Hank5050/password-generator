@@ -11,38 +11,68 @@ function writePassword() {
 }
 
 function generatePassword() {
-  var passwordLength = getLength();
+  var upperCasedCharacters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+  var lowerCasedCharacters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+  var specialCharacters = ["@","%","+","\\","/","*","!","#","$","^","?",":",",","(",")","{","}","[","]","~","-","_",".","=",];
+  var numericCharacters = ["0","1","2","3","4","5","6","7","8","9"];
+  
+  var passwordLength = prompt("Enter length of desired Password");
+  parseInt(passwordLength);
+  if (passwordLength < 8) {
+    alert("Password must be at least 8 characters");
+    return;
+  } else if (passwordLength > 128) {
+    alert("Password can be no greater than 128 characters");
+    return;
+  }
+  
   var hasUpperCase = confirm("Would you like to include uppercase characters?");
   var hasLowerCase = confirm("Would you like to include lowercase characters?");
   var hasSpecial = confirm("Would you like to include special characters?");
   var hasNumbers = confirm("Would you like to include numbers?");
 
-  var upperCasedCharacters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-  var lowerCasedCharacters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-  var specialCharacters = ["@","%","+","\\","/","*","!","#","$","^","?",":",",","(",")","{","}","[","]","~","-","_",".","=",];
-  var numericCharacters = ["0","1","2","3","4","5","6","7","8","9"];
-
-  let pass = []
-
-  if (hasUpperCase) pass = pass.concat(upperCasedCharacters);
-  if (hasLowerCase) pass = pass.concat(lowerCasedCharacters);
-  if (hasSpecial) pass = pass.concat(specialCharacters);
-  if (hasNumbers) pass = pass.concat(numericCharacters);
-
-  var passwordInfo = []
-  for (let i = 0; i < passwordLength; i++) {
-    password.info.push(pass[Math.floor(math.random() * pass.length)])
+  var possibleChars = ""
+  if (hasUpperCase) {
+    for (let x in upperCasedCharacters) {
+      possibleChars += upperCasedCharacters[x];
+    };
   }
-  return passwordInfo.join('')
-}
 
+  if (hasLowerCase) {
+    for (let x in lowerCasedCharacters) {
+      possibleChars += lowerCasedCharacters[x];
+    };
+  }
+
+  if (hasSpecial) {
+    for (let x in specialCharacters) {
+      possibleChars += specialCharacters[x];
+    };
+  }
+
+  if (hasNumbers) {
+    for (let x in numericCharacters) {
+      possibleChars += numericCharacters[x];
+    };
+  }
+
+  if (!hasUpperCase && !hasLowerCase && !hasSpecial && !hasNumbers) {
+    alert("Must select at least one character option");
+    return;
+  }
+
+  var password = "";
+  for (var i=0; i <= passwordLength; i++) {
+    var randomNumber = math.floor(math.random() * possibleChars.length);
+    password += possibleChars[randomNumber];
+  }
+
+  return password;
+
+
+}
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-function getLength() {
-  var passwordLength = parseInt(prompt("Enter length of desired Password between 8 and 128 characters"));
-  
-  if (passwordLength >= 8 && passwordLength <= 128) {
-    else {getLength};
-  }
-}
+
+
