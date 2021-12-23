@@ -63,7 +63,7 @@ function generatePassword() {
 
   var password = "";
   for (var i=0; i <= passwordLength; i++) {
-    var randomNumber = math.floor(math.random() * possibleChars.length);
+    var randomNumber = Math.floor(Math.random() * possibleChars.length);
     password += possibleChars[randomNumber];
   }
 
